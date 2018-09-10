@@ -1,0 +1,20 @@
+# disable startup message
+startup_message off
+
+# if we accidentally hangup, don't be all attached when we come back.
+autodetach on
+
+# more scrollbacks!
+defscrollback 30000
+
+defc1 off
+defutf8 on
+encoding utf-8 utf-8
+defencoding utf-8
+
+vbell off
+
+sorendition kw
+
+# http://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
+hardstatus alwayslastline "%{= KG} %H %{= Kd}|%{= Kw} %-w%{= bW}%n%f %t%{-}%+w %=| %D %M %d %c"
