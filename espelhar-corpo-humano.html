@@ -1,0 +1,101 @@
+<script>
+	var resultado_final = [];
+	var original = [
+[8, 1],
+[13, 2],
+[18, 5],
+[22, 9],
+[26, 17],
+[28, 24],
+[30, 33],
+[31, 42],
+[31, 51],
+[31, 57],
+[30, 60],
+[30, 64],
+[32, 68],
+[34, 76],
+[35, 83],
+[36, 90],
+[36, 96],
+[36, 102],
+[35, 108],
+[35, 110],
+[5, 116],
+[4, 112],
+[4, 106],
+[5, 100],
+[4, 98],
+[2, 93],
+[1, 88],
+[0, 86],
+[1, 77],
+[3, 66],
+[3, 53],
+[8, 47],
+[11, 39],
+[12, 32],
+[12, 25],
+[13, 18],
+[13, 12],
+[11, 6],
+	];
+	
+	var max_x = 0;
+	var original_length = original.length;
+	for(i=0; i<original_length; i++)
+	{
+		var item = original[i];
+		var x = item[0];
+		if( x > max_x ){
+			max_x = x;
+		}
+	}
+	
+	
+	// Adequando os pontos originais para a 'nova largura da imagem' (que Ã© o dobro da original).
+	// Se a imagem tiver originalmente 50px de largura e um determinado ponto for (10, 0), esse mesmo ponto
+	// numa imagem com o dobro de largura seria (60, 0), pq {$width} /* 50 */ + {$x} /* 10 */ = 60
+	for(i=0; i<original_length; i++)
+	{
+		var ponto_original = original[i];
+		var x_original = ponto_original[0];
+		var y_original = ponto_original[1];
+		
+		var x_final = max_x + x_original + 1;
+		var y_final = y_original;
+		var ponto_final = [x_final, y_final];
+		
+		resultado_final.push(ponto_final);
+	}
+	
+	resultado_final.push( new Array("-------------------------", 0) );
+	
+	// Agora fazemos o for() invertido, pra pegar do Ãºltimo ponto atÃ© o primeiro.
+	var t = original_length-1; // -1 pq o primeiro item do array estÃ¡ em [0].
+	for(i=t; i>=0; i--)
+	{
+		var ponto_original = original[i];
+		var x_original = ponto_original[0];
+		var y_original = ponto_original[1];
+		
+		var x_final = max_x - x_original;
+		var y_final = y_original;
+		var ponto_final = [x_final, y_final];
+		
+		resultado_final.push(ponto_final);
+	}
+	
+	// Agora passando pro Qt
+	var str = "";
+	for(i=0; i<resultado_final.length; i++)
+	{
+		var ponto_final = resultado_final[i];
+		var x_final = ponto_final[0];
+		var y_final = ponto_final[1];
+		
+		str += "addPoint( QPointF(" + x_final + ", " + y_final + ") );<br />";
+	}
+	
+	document.write(str);
+</script>
